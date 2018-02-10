@@ -1,4 +1,6 @@
 # Lumberjack Validation
+![CI](https://travis-ci.org/Rareloop/lumberjack-validation.svg?branch=master)
+![Coveralls](https://coveralls.io/repos/github/Rareloop/lumberjack-validation/badge.svg?branch=master)
 
 This package provides a simple way to validate form input. At it's heart it is a thin wrapper around the Rakit Validation library. For documentation on the types of rules you can use refer to their (Github docs)[https://github.com/rakit/validation.
 
