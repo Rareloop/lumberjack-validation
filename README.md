@@ -51,3 +51,52 @@ class IndexController
     }
 }
 ```
+
+## Adding custom messages
+
+You can add custom validation messages per rule by adding a `protected $messages` variable to your form.
+
+[See the documentation](https://github.com/rakit/validation#custom-validation-message) for a list of the variables that are available within your message.
+
+```php
+class ContactForm extends AbstractForm
+{
+    protected $rules = [
+        'name' => 'required',
+        'email' => 'required|email'
+    ];
+
+    protected $messages = [
+        'required' => ':attribute missing',
+    ];
+}
+```
+
+## Adding custom attribute aliases
+
+If you need to change how a field's name is presented in the error message, you can add an alias for it.
+
+For example, if we had the field `district_id`, by default any validation errors for this field would look something like this:
+
+> The District id field is required
+
+Instead, you can add an alias by adding a `protected $alias` variable to your form. For example we can change the output to be:
+
+> The District field is required
+
+[See the documentation](https://github.com/rakit/validation#attribute-alias) for more information.
+
+```php
+class ContactForm extends AbstractForm
+{
+    protected $rules = [
+        'province_id' => 'required',
+        'district_id' => 'required',
+    ];
+
+    protected $aliases = [
+        'province_id' => 'Province',
+        'district_id' => 'District',
+    ];
+}
+```

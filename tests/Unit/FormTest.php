@@ -65,6 +65,37 @@ class FormTest extends TestCase
     }
 
     /** @test */
+    public function can_add_aliases_to_fields_with_custom_message()
+    {
+        $form = new FormWithAliases(new Validator);
+
+        $form->validate([]);
+
+        $this->assertSame([
+            'name' => [
+                'FOO missing',
+            ],
+            'email' => [
+                'BAR missing',
+            ],
+        ], $form->errors());
+    }
+
+    /** @test */
+    public function can_add_translations()
+    {
+        $form = new FormWithTranslations(new Validator);
+
+        $form->validate(['nomor' => 10]);
+
+        $this->assertSame([
+            'nomor' => [
+                "Nomor hanya memperbolehkan '1', '2', atau '3'",
+            ],
+        ], $form->errors());
+    }
+
+    /** @test */
     public function can_serialise_form_to_an_array()
     {
         $form = new Form(new Validator);
@@ -101,5 +132,38 @@ class FormWithCustomMessage extends AbstractForm
 
     protected $messages = [
         'required' => ':attribute missing',
+    ];
+}
+
+class FormWithAliases extends AbstractForm
+{
+    protected $rules = [
+        'name' => 'required',
+        'email' => 'required',
+    ];
+
+    protected $messages = [
+        'required' => ':attribute missing',
+    ];
+
+    protected $aliases = [
+        'name' => 'FOO',
+        'email' => 'BAR',
+    ];
+}
+
+class FormWithTranslations extends AbstractForm
+{
+    protected $rules = [
+        'nomor' => 'in:1,2,3',
+    ];
+
+    protected $messages = [
+        'in' => ':attribute hanya memperbolehkan :allowed_values'
+    ];
+
+    protected $translations = [
+        'and' => 'dan',
+        'or' => 'atau'
     ];
 }

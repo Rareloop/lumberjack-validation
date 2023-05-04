@@ -10,6 +10,8 @@ abstract class AbstractForm implements FormInterface
     protected $data = [];
     protected $rules = [];
     protected $messages = [];
+    protected $aliases = [];
+    protected $translations = [];
     protected $validator;
     protected $validation;
 
@@ -18,16 +20,28 @@ abstract class AbstractForm implements FormInterface
         $this->validator = $validator;
     }
 
-    public function validate(array $data) : bool
+    public function validate(array $data): bool
     {
         $this->data = $data;
-        $this->validation = $this->validator->validate($this->data, $this->rules, $this->messages);
+
+        if (!empty($this->translations)) {
+            $this->validator->setTranslations($this->translations);
+        }
+
+        $this->validation = $this->validator->make($this->data, $this->rules, $this->messages);
+
+        if (!empty($this->aliases)) {
+            $this->validation->setAliases($this->aliases);
+        }
+
+
+        $this->validation->validate();
 
         if ($this->validation->fails()) {
             return false;
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     public function errors()
