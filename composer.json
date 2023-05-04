@@ -24,6 +24,7 @@
     "config": {
         "allow-plugins": {
             "composer/installers": true
-        }
+        },
+        "platform-check": false
     }
 }
