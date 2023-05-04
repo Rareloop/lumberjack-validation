@@ -32,7 +32,7 @@ class ContactForm extends AbstractForm
 
 ## Use the form to validate input
 
-Your form can be injected into your Lumberjack Controllers and then used this this:
+Your form can be injected into your Lumberjack Controllers and then used like this:
 
 ```php
 use App\Forms\ContactForm;
