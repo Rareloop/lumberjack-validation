@@ -22,6 +22,7 @@ jobs:
     - name: Install dependencies
       uses: php-actions/composer@v6
       with:
+        dev: no
         php_version: ${{ matrix.php_version }}
         args: ${{ matrix.composer_flags }}
         command: update
