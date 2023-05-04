@@ -24,7 +24,7 @@ jobs:
       with:
         dev: no
         php_version: ${{ matrix.php_version }}
-        args: ${{ matrix.composer_flags }}
+        args: ${{ matrix.composer_flags }} --ignore-platform-reqs
         command: update
 
     - name: Run tests
